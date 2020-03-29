@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class ClientController extends Controller
 {
     use APIResponseTrait;
-    // public function register(ClientRequest $request)
+    
     public function register(Request $request)
     {
         // if (isset($request->validator) && $request->validator->fails())
@@ -30,19 +30,24 @@ class ClientController extends Controller
 
     public function login()
     {
-        $credentials = request(['phone', 'password']);
+        $field = 'phone';
 
-        if(!Auth::guard('client')->attempt($credentials, false, false)){
+        if (is_numeric($request->input('phone'))) {
+            $field = 'phone';
+        } elseif (filter_var($request->input('phone'), FILTER_VALIDATE_EMAIL)) {
+            $field = 'email';
+        }
+
+        $request->merge([$field => $request->input('phone')]);
+
+        if (!Auth::guard('client')->attempt($request->only($field, 'password'))) {
             $error = "Unauthorized";
             return $this->APIResponse(null, $error, 400);
         }
-        $client = Client::where("phone", request('phone'))->first();
-        auth()->login($client);
-      //  return Auth::guard('client')->user()->id;
-        $success['token'] =  $client->createToken('token')->accessToken;
-        return $this->APIResponse($success, null, 200);
-        return response()->json($success, 200);
+        $client = Client::where($field, request('phone'))->first();
 
+        $success['token'] = $client->createToken('token')->accessToken;
+        return $this->APIResponse($success, null, 200);
     }
 
     public function loginStudy(){ 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeliveriesTable extends Migration
+class CreatePatientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,24 @@ class CreateDeliveriesTable extends Migration
      */
     public function up()
     {
-       
-        Schema::create('deliveries', function (Blueprint $table) {
+        Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->double('delivery_ratio')->default(2);
             $table->string('phone');
             $table->string('phone2')->nullable();
+            $table->date('birth_of_date');
+            $table->enum('gender' , ['male' , 'female']);
+            $table->string('national_id');
             $table->string('address');
             $table->string('address2')->nullable();
-            $table->time('attendance'); /// حضور
-            $table->time('departure');  //// انصراف
-            $table->boolean('is_free')->default(0);
-            $table->double('money')->default(0)->nullable();
-            $table->double('deduction')->default(0)->nullable();
+            $table->integer('money')->default(0);
+            $table->string('job')->nullable();
+            $table->boolean('is_block')->default(0);
+            $table->string('block_reason')->nullable()->default("he is not good");
+
             $table->bigInteger('city_id')->unsigned()->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
@@ -46,6 +48,6 @@ class CreateDeliveriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliveries');
+        Schema::dropIfExists('patients');
     }
 }

@@ -46,26 +46,17 @@ return [
             'provider' => 'clients',
             'hash' => false,
         ],
-        'client' => [
+        'patient' => [
             'driver' => 'session',
-            'provider' => 'clients',
+            'provider' => 'patients',
 
         ],
-        'client-api' => [
+        'patient-api' => [
             'driver' => 'passport',
-            'provider' => 'clients',
+            'provider' => 'patients',
             'hash' => false,
         ],
-        'delivery' => [
-            'driver' => 'session',
-            'provider' => 'deliveries',
-
-        ],
-        'delivery-api' => [
-            'driver' => 'passport',
-            'provider' => 'deliveries',
-            'hash' => false,
-        ],
+       
     ],
 
     /*
@@ -90,14 +81,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'clients' => [
+        'patients' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Client::class,
+            'model' => App\Models\Patient::class,
         ],
-        'deliveries' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Delivery::class,
-        ],
+    
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
