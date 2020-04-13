@@ -1,21 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\APIs;
+
 use App\Http\Controllers\APIResponseTrait;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class MobileController extends Controller
 {
     use APIResponseTrait;
-    public function services()
-    {
-        return $this->APIResponse(\App\Models\Service::where('is_avaible' , 1)->get(), null, 201);
-    }
-    public function priceList()
-    {
-        return $this->APIResponse(\App\Models\PriceList::all(), null, 201);
-    }
+
     public function complaint(Request $request)
     {
         \App\Models\Complaint::create($request->all());
@@ -25,9 +19,5 @@ class MobileController extends Controller
     {
         return $this->APIResponse(City::all(), null, 201);
     }
-    public function showOffers()
-    {
-        return $this->APIResponse(\App\Models\Offer::all(), null, 201);
-        
-    }
+
 }

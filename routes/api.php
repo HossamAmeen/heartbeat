@@ -10,9 +10,11 @@ Route::namespace ("APIs")->group(function () {
     Route::prefix("patients")->group(function () {
         Route::post("login", "PatientController@login");
         Route::post("register", "PatientController@register");
+        Route::put("update", "PatientController@updateAccount");
+        Route::get("account", "PatientController@getAccount");
     });
-  
-   
+
+
     Route::middleware('auth:client-api')->group(function () {
         Route::get("account", "ClientController@getAccount");
         Route::put("account/update", "ClientController@updateAccount");

@@ -5,6 +5,7 @@ use App\Http\Controllers\APIResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use Auth;
+use Hash;
 use App\Http\Controllers\Controller;
 
 class PatientController extends Controller
@@ -43,5 +44,25 @@ class PatientController extends Controller
 
         $success['token'] = $patient->createToken('token')->accessToken;
         return $this->APIResponse($success, null, 200);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $row = Patient::findOrFail(Auth::guard('patient-api')->user()->id) ;
+        $requestArray = $request->all();
+        if(isset($requestArray['password']) && $requestArray['password'] != ""){
+            $requestArray['password'] =  Hash::make($requestArray['password']);
+        }else{
+            unset($requestArray['password']);
+        }
+        $row->update($requestArray);
+
+        return $this->APIResponse(null, null, 200);
+    }
+
+    public function getAccount()
+    {
+        return $this->APIResponse( Patient::findOrFail(Auth::guard('patient-api')->user()->id), null, 200);
+
     }
 }

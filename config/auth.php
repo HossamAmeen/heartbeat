@@ -56,7 +56,7 @@ return [
             'provider' => 'patients',
             'hash' => false,
         ],
-       
+
     ],
 
     /*
@@ -85,7 +85,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Patient::class,
         ],
-    
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
