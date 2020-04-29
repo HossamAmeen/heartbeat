@@ -13,13 +13,13 @@ class Patient extends Authenticatable
     // use LaratrustUserTrait;
     use HasApiTokens, Notifiable;
 
-    protected $fillable = [ 
+    protected $fillable = [
         'first_name' , 'last_name' ,
         'email' , 'password' ,
-        'phone' ,'phone2' ,'birth_of_date',
+        'phone' ,'phone2' ,'age',
         'gender','national_id',
-    'address', 'address2' , 'money','job'
-      ,"is_block","block_reason",'city_id'
+    'address', 'address2' , 'money','job', 'image'
+    ,"is_block","block_reason",'city_id'
     ];
     protected $hidden = [
         'password',

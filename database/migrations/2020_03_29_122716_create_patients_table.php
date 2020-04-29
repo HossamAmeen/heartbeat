@@ -17,11 +17,11 @@ class CreatePatientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('password');
             $table->string('phone');
             $table->string('phone2')->nullable();
-            $table->date('birth_of_date');
+            $table->integer('age');
             $table->enum('gender' , ['male' , 'female']);
             $table->string('national_id');
             $table->string('address');
@@ -30,7 +30,7 @@ class CreatePatientsTable extends Migration
             $table->string('job')->nullable();
             $table->boolean('is_block')->default(0);
             $table->string('block_reason')->nullable()->default("he is not good");
-
+            $table->string('image')->nullable();
             $table->bigInteger('city_id')->unsigned()->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
