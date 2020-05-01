@@ -19,6 +19,7 @@ class PatientController extends Controller
         // }
         // return $request->password;
         $request['password'] = bcrypt($request->password);
+        return $request->all();
         $patient = Patient::create($request->all());
         $data['token'] =  $patient->createToken('token')->accessToken;
         return $this->APIResponse($data, null, 200);
