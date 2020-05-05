@@ -21,7 +21,7 @@ class CreatePatientsTable extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('phone2')->nullable();
-            $table->date('birth_date');
+            $table->string('birth_date');
             $table->enum('gender' , ['male' , 'female']);
             $table->string('national_id');
             $table->string('address');
