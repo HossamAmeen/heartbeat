@@ -13,21 +13,21 @@
 
 // Route::get('/', 'Dashboard\ConfigrationController@index');
 
-Route::prefix('admin')->group(function () {
-    Auth::routes();
-    Route::namespace ('Dashboard')->group(function () {
-        Route::any('sendToken', 'ConfigrationController@sendToken')->name('forget.password');
-        Route::any('paswordreset/{id}/{token}', 'ConfigrationController@paswordreset');
-        // Route::post('login', 'BackEnd\UserController@login');
-        Route::middleware('auth')->group(function () {
+// Route::prefix('admin')->group(function () {
+//     Auth::routes();
+//     Route::namespace ('Dashboard')->group(function () {
+//         Route::any('sendToken', 'ConfigrationController@sendToken')->name('forget.password');
+//         Route::any('paswordreset/{id}/{token}', 'ConfigrationController@paswordreset');
+//         // Route::post('login', 'BackEnd\UserController@login');
+//         Route::middleware('auth')->group(function () {
 
-            Route::get('/', 'UserController@index');
-            Route::resource('configrations', 'ConfigrationController');
-            Route::resource('users', 'UserController');
+//             Route::get('/', 'UserController@index');
+//             Route::resource('configrations', 'ConfigrationController');
+//             Route::resource('users', 'UserController');
 
-        });
+//         });
 
-    });
-});
-Route::get('/', 'Dashboard\ConfigrationController@index')->name('home');
-Route::get('firebase', 'FirebaseController@index');
+//     });
+// });
+// Route::get('/', 'Dashboard\ConfigrationController@index')->name('home');
+// Route::get('firebase', 'FirebaseController@index');
