@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\APIs;
+
 use App\Http\Controllers\APIResponseTrait;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Auth;
 use Hash;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
@@ -21,7 +22,7 @@ class PatientController extends Controller
         $request['password'] = bcrypt($request->password);
         // return $request->all();
         $patient = Patient::create($request->all());
-        $data['token'] =  $patient->createToken('token')->accessToken;
+        $data['token'] = $patient->createToken('token')->accessToken;
         return $this->APIResponse($data, null, 200);
     }
 
@@ -49,12 +50,15 @@ class PatientController extends Controller
 
     public function updateAccount(Request $request)
     {
-        $row = Patient::findOrFail(Auth::guard('patient-api')->user()->id) ;
+        $row = Patient::findOrFail(Auth::guard('patient-api')->user()->id);
         $requestArray = $request->all();
-        if(isset($requestArray['password']) && $requestArray['password'] != ""){
-            $requestArray['password'] =  Hash::make($requestArray['password']);
-        }else{
+        if (isset($requestArray['password']) && $requestArray['password'] != "") {
+            $requestArray['password'] = Hash::make($requestArray['password']);
+        } else {
             unset($requestArray['password']);
+        }
+        if (isset($requestArray['image']) ){
+            $requestArray['image'] = $this->uploadFile($request);
         }
         $row->update($requestArray);
 
@@ -63,7 +67,20 @@ class PatientController extends Controller
 
     public function getAccount()
     {
-        return $this->APIResponse( Patient::findOrFail(Auth::guard('patient-api')->user()->id), null, 200);
+        return $this->APIResponse(Patient::findOrFail(Auth::guard('patient-api')->user()->id), null, 200);
 
+    }
+
+    protected function uploadFile($request, $height = 400, $width = 400)
+    {
+
+        $photo = $request->file('image');
+        $fileName = time() . str_random('10') . '.' . $photo->getClientOriginalExtension();
+        $destinationPath = public_path('uploads/' . $this->getClassNameFromModel() . '/');
+        if (!is_dir($destinationPath)) {
+            mkdir($destinationPath);
+        }
+        $photo->move($destinationPath, $fileName);
+        return 'uploads/' . $this->getClassNameFromModel() . '/' . $fileName;
     }
 }

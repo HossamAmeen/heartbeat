@@ -95,32 +95,28 @@ class BackEndController extends Controller
         ))->with($append);
     }
     protected function uploadImage($request , $height = 400 , $width = 400){
-       
+
         $photo = $request->file('image');
         $fileName = time().str_random('10').'.'.$photo->getClientOriginalExtension();
-        // $destinationPath = public_path('uploads/'.$this->getClassNameFromModel().'/');
-        // return "test";
-        // $image = Image::make($photo->getRealPath())->resize($height, $width);
 
-            // return $destinationPath;
-         
+
          if(!is_dir($destinationPath) ){
              mkdir($destinationPath);
          }
          $photo->move($destinationPath , $fileName);
-        // $image->save($destinationPath.$fileName);
+
         return 'uploads/'.$this->getClassNameFromModel().'/'. $fileName;
     }
 
     protected function uploadImage2($request , $height = 400 , $width = 400){
-       
+
         $photo = $request->file('image');
         $fileName = time().str_random('10').'.'.$photo->getClientOriginalExtension();
         $destinationPath = ('uploads/'.$this->getClassNameFromModel().'/');
         $image = Image::make($photo->getRealPath())->resize($height, $width);
 
             // return $destinationPath;
-           
+
          if(!is_dir($destinationPath) ){
              mkdir($destinationPath);
          }
@@ -133,10 +129,6 @@ class BackEndController extends Controller
         $photo = $request->file('image');
         $fileName = time().str_random('10').'.'.$photo->getClientOriginalExtension();
         $destinationPath = public_path('uploads/'.$this->getClassNameFromModel().'/');
-        // $image = Image::make($photo->getRealPath())->resize($height, $width);
-
-            // return $destinationPath;
-
          if(!is_dir($destinationPath) ){
              mkdir($destinationPath);
          }
