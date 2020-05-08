@@ -11,7 +11,7 @@ Route::namespace ("APIs")->group(function () {
         Route::post("login", "PatientController@login");
         Route::post("register", "PatientController@register");
 
-        Route::post("update", "PatientController@updateAccount");
+        Route::put("update", "PatientController@updateAccount");
         Route::get("account", "PatientController@getAccount");
     });
 
