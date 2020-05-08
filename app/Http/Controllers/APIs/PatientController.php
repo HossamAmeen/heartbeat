@@ -76,7 +76,7 @@ class PatientController extends Controller
 
         $photo = $request->file('image');
         $fileName = time() . str_random('10') . '.' . $photo->getClientOriginalExtension();
-        $destinationPath = public_path('uploads/');
+        $destinationPath = 'uploads/';
         if (!is_dir($destinationPath)) {
             mkdir($destinationPath);
         }
