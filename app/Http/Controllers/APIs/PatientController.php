@@ -81,6 +81,6 @@ class PatientController extends Controller
             mkdir($destinationPath);
         }
         $photo->move($destinationPath, $fileName);
-        return 'uploads/' . $this->getClassNameFromModel() . '/' . $fileName;
+        return 'uploads/' . $fileName;
     }
 }
