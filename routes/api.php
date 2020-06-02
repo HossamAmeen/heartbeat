@@ -26,3 +26,4 @@ Route::namespace ("APIs")->group(function () {
     });
 
 });
+Route::post('hospital/register', 'HospitalController@register');
