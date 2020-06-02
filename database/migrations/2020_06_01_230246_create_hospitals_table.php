@@ -26,7 +26,7 @@ class CreateHospitalsTable extends Migration
             $table->string('password');
             $table->string('type');
             $table->boolean('is_government');
-            $table->string('number_of_beds');
+            $table->integer('number_of_beds')->default(0);
             $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });
