@@ -56,6 +56,16 @@ return [
             'provider' => 'patients',
             'hash' => false,
         ],
+        'hospital' => [
+            'driver' => 'session',
+            'provider' => 'hospitals',
+
+        ],
+        'hospital-api' => [
+            'driver' => 'passport',
+            'provider' => 'hospitals',
+            'hash' => false,
+        ],
 
     ],
 
@@ -85,7 +95,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Patient::class,
         ],
-
+        'hospitals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Hospital::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
