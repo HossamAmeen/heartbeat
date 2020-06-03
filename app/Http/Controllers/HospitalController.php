@@ -31,10 +31,7 @@ class HospitalController extends Controller
         return $this->APIResponse($success, null, 200);
     }
 
-    public function index()
-    {
-        return $this->APIResponse( Hospital::all(), null, 200);
-    }
+   
     
     public function store(Request $request)
     {
@@ -77,7 +74,15 @@ class HospitalController extends Controller
     public function search()
     {
         return $this->APIResponse(Hospital::where('city' , request('city_name'))
-        // ->where(['number_of_medium_care_beds', '>=' , 1 ])
+        ->where(function ($query) {
+            $query->Where('number_of_medium_care_beds', '>=' , 1)
+                  ->orWhere('number_of_interior_care_beds', '>=' , 1)
+                  ->orWhere('number_of_intensive_care_beds', '>=' , 1)
+                //   ->where('title', '<>', 'Admin');
+                ;
+        })
+        ->where('type',request('hospital_type'))
+        ->Where('is_approved' , 1)
         ->get()
         , null, 200);
     }

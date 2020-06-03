@@ -29,9 +29,15 @@ use Illuminate\Http\Request;
 Route::prefix("hospital")->group(function () { 
     Route::post('register', 'HospitalController@store');
     Route::post("login", "HospitalController@login");
-    Route::get('/', 'HospitalController@index');
+   
     Route::get('info', 'HospitalController@getAccount');
     Route::put('update', 'HospitalController@update');
     Route::get('search', 'HospitalController@search');
 
+});
+
+Route::prefix("admin")->group(function () { 
+    Route::get('/', 'AdminController@index');
+    Route::post("login", "AdminController@login");
+    Route::put('aprrove-hospital/{id}', 'AdminController@approveHospital');
 });
