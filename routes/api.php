@@ -31,4 +31,7 @@ Route::prefix("hospital")->group(function () {
     Route::post("login", "HospitalController@login");
     Route::get('/', 'HospitalController@index');
     Route::get('info', 'HospitalController@getAccount');
+    Route::put('update', 'HospitalController@update');
+    Route::get('search', 'HospitalController@search');
+
 });

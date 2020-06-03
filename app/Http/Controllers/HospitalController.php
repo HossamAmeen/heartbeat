@@ -43,21 +43,27 @@ class HospitalController extends Controller
         Hospital::create($request->all());
         return $this->APIResponse(null, null, 200);
     }
-    public function updateAccount(Request $request)
+    public function update(Request $request)
     {
-        $row = Patient::findOrFail(Auth::guard('patient-api')->user()->id);
-        $requestArray = $request->all();
-        if (isset($requestArray['password']) && $requestArray['password'] != "") {
-            $requestArray['password'] = Hash::make($requestArray['password']);
-        } else {
-            unset($requestArray['password']);
+        if(isset(Auth::guard('hospital-api')->user()->id)){
+            $row = Hospital::findOrFail(Auth::guard('hospital-api')->user()->id);
+            $requestArray = $request->all();
+            if (isset($requestArray['password']) && $requestArray['password'] != "") {
+                $requestArray['password'] = bcrypt($requestArray['password']);
+            } else {
+                unset($requestArray['password']);
+            }
+            if (isset($requestArray['image']) ){
+                $requestArray['image'] = $this->uploadFile($request);
+            }
+            $row->update($requestArray);
+    
+            return $this->APIResponse(null, null, 200);
         }
-        if (isset($requestArray['image']) ){
-            $requestArray['image'] = $this->uploadFile($request);
+        else{
+            return $this->APIResponse(null, "not send token or not authorized", 401);
         }
-        $row->update($requestArray);
-
-        return $this->APIResponse(null, null, 200);
+        
     }
 
     public function getAccount()
@@ -67,6 +73,10 @@ class HospitalController extends Controller
         else{
             return $this->APIResponse(null, "not send token or not authorized", 401);
         }
+    }
+    public function search()
+    {
+        return $this->APIResponse(Hospital::where('city' , request('city_name'))->where('number_of_beds', '>=' , 1)->get(), null, 200);
     }
 
 }
