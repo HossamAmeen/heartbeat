@@ -76,7 +76,10 @@ class HospitalController extends Controller
     }
     public function search()
     {
-        return $this->APIResponse(Hospital::where('city' , request('city_name'))->where('number_of_beds', '>=' , 1)->get(), null, 200);
+        return $this->APIResponse(Hospital::where('city' , request('city_name'))
+        // ->where(['number_of_medium_care_beds', '>=' , 1 ])
+        ->get()
+        , null, 200);
     }
 
 }
