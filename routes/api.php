@@ -39,5 +39,5 @@ Route::prefix("hospital")->group(function () {
 Route::prefix("admin")->group(function () { 
     Route::get('/', 'AdminController@index');
     Route::post("login", "AdminController@login");
-    Route::put('aprrove-hospital/{id}', 'AdminController@approveHospital');
+    Route::put('approve-hospital/{id}', 'AdminController@approveHospital');
 });
