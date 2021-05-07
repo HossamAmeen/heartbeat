@@ -16,7 +16,7 @@
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "intervention/image": "^2.5",
         "kreait/firebase-php": "4.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.18.*",
         "laravel/passport": "~7.5.1",
         "laravel/tinker": "^1.0",
         "santigarcor/laratrust": "5.2.*"
